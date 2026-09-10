@@ -1,0 +1,15 @@
+[workspace]
+resolver = "2"
+members = ["trustm-sys", "trustm"]
+
+[workspace.package]
+version = "5.8.2" # follows submodule
+edition = "2021"
+license = "MIT"
+repository = "https://github.com/kern-werk/trustm-rs"
+
+[profile.release]
+opt-level = "s"
+lto = true
+codegen-units = 1
+strip = true

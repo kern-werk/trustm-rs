@@ -1,0 +1,10 @@
+[package]
+name = "trustm"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Safe, blocking Rust API for the Infineon OPTIGA Trust M secure element"
+
+[dependencies]
+trustm-sys = { path = "../trustm-sys" }
