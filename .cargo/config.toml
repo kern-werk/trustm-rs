@@ -1,0 +1,12 @@
+# Cross linkers for aarch64 Linux targets. The C library is libc-only, so a
+# fully static binary is:
+#
+#   cargo build --release --target aarch64-unknown-linux-musl
+#
+# needing only aarch64-linux-musl-gcc on the path (Arch: AUR musl-cross-make,
+# Debian: musl-tools has no aarch64 cross, use a musl.cc toolchain).
+[target.aarch64-unknown-linux-musl]
+linker = "aarch64-linux-musl-gcc"
+
+[target.aarch64-unknown-linux-gnu]
+linker = "aarch64-linux-gnu-gcc"

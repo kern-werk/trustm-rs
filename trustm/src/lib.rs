@@ -30,14 +30,17 @@
 //! serves one command at a time. [`Trustm`] is `Send` but not `Sync`; put it
 //! in a `Mutex` to share it between threads.
 //!
-//! # Hardware assumptions not yet verified on silicon
+//! # Verified on hardware
 //!
-//! - ECC public keys are exported as `03 len 00 04 x y`.
-//! - Reset type 1 (soft reset over I2C) works with no reset/VDD GPIO wired.
-//! - `optiga_util_open_application(restore = 0)` on every open is fine for
-//!   the intended call pattern (short-lived processes).
-//! - Buffer sizes chosen here (2048 for data objects, 512 for RSA public
-//!   keys, 160 for ECDSA signatures) cover every object the chip exposes.
+//! The `trustm-check` binary passes on an OPTIGA Trust M v3 (host library
+//! release 5.8.x): soft reset over I2C with no reset/VDD GPIO wired, ECC
+//! public keys exported as `03 len 00 04 x y`, ECDSA signatures as two bare
+//! DER INTEGERs, and `optiga_util_open_application(restore = 0)` on every
+//! open. A full open + ECDSA sign + close cycle takes about 180 ms.
+//!
+//! Not yet exercised on hardware: the RSA, HMAC, HKDF, TLS PRF and AES
+//! methods, and key generation with export. Their buffer sizes follow the
+//! Solution Reference Manual.
 
 mod types;
 

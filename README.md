@@ -20,6 +20,16 @@ Anything the safe API does not cover (protected updates, streaming hash and HMAC
 
 The versioning of this crate follows the versioning of the submodule.
 
+## Checking a device
+
+`trustm-check` is a small static binary that exercises a chip with read-only operations: identity and state objects, metadata, the factory certificate, random, a SHA-256 known answer, and a sign/verify round trip with the factory key against its certificate. It writes nothing to the chip and exits non-zero if any check fails.
+
+```sh
+cargo build --release --target aarch64-unknown-linux-musl
+scp target/aarch64-unknown-linux-musl/release/trustm-check device:
+ssh device ./trustm-check 1        # bus number or device path; -h for help
+```
+
 ## Build configuration
 
 `trustm-sys/csrc/trustm_sys_config.h` enables every chip command. Two things are deliberately off:
